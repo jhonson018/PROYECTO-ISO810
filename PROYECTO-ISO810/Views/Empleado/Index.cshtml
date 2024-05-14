@@ -1,0 +1,125 @@
+﻿@model IEnumerable<PROYECTO_ISO810.Models.Empleados>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+
+</p>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+<div class="container">
+    <div class="row flex-lg-nowrap">
+
+
+        <div class="col">
+           
+
+            <div class="row flex-lg-nowrap">
+                <div class="col mb-3">
+                    <div class="e-panel card">
+                        <div class="card-body">
+                            <div class="e-table">
+                                @if (!string.IsNullOrEmpty(TempData["Alerta"] as string))
+                                {
+                                    <div>
+                                        @TempData["Alerta"]
+                                    </div>
+                                }
+                                <div class="table-responsive table-lg mt-3">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+
+                                                <th>Nombre Completo</th>
+                                                <th>Cedula</th>
+                                                <th class="max-width">Departamento</th>
+                                                <th class="sortable">Cargo</th>
+                                                <th class="sortable">Salario</th>
+                                                <th class="sortable">Fecha de Inicio</th>
+                                                <th class="sortable">Fecha de Nacimiento</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model)
+                                            {
+                                                <tr>
+                                                    <td class="text-nowrap align-middle">
+                                                        @item.NombreCompleto
+                                                    </td>
+                                                    <td class="text-nowrap align-middle"><span>@item.Cedula</span></td>
+                                                    <td class="text-nowrap align-middle"><span>@item.Departamento</span></td>
+                                                    <td class="text-nowrap align-middle"><span>@item.Cargo</span></td>
+                                                    <td class="text-nowrap align-middle"><span>@item.Salario</span></td>
+                                                    @if (item.FechaDeInicio != null)
+                                                    {
+                                                        <td class="text-nowrap align-middle"><span>@item.FechaDeInicio.Value.ToString("d")</span></td>
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <td class="text-nowrap align-middle"><span>Nulo</span></td>
+
+                                                    }
+
+
+                                                    @if (item.FechaDeNacimiento != null)
+                                                    {
+                                                        <td class="text-nowrap align-middle"><span>@item.FechaDeNacimiento.Value.ToString("d")</span></td>
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <td class="text-nowrap align-middle"><span>Nulo</span></td>
+
+                                                    }
+                                                    <td class="text-center align-middle">
+                                                        <div class="btn-group align-top">
+                                                            <a class="btn btn-sm btn-outline-secondary" href="/Empleado/Edit/@item.IDEmpleado">Edit</a>
+                                                            <a class="btn btn-sm btn-outline-secondary" href="/Empleado/Delete/@item.IDEmpleado">Delete</a>
+                                                        </div>
+                                                    </td>
+
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-10 col-lg-3 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="text-center px-xl-3">
+                                <a class="btn btn-success btn-block mb-2" type="button" href="/Empleado/GenerarArchivo">Archivo Importar</a>
+                                <a class="btn btn-success btn-block" type="button" href="/Empleado/GenerarArchivo2">Archivo Ver</a>
+
+                            </div>
+                            <hr class="my-3">
+                            <div class="e-navlist e-navlist--active-bold">
+                                <ul class="nav">
+                                    <form method="post" enctype="multipart/form-data" action="/Empleado/ImportarArchivo">
+                                        <input type="file" name="archivo" />
+                                        <button type="submit">Importar</button>
+                                    </form>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
